@@ -1,0 +1,57 @@
+SN,Diagnosis,Age,Years,Region,Found dead,Wasting,Respiratory,"Other/
+Unknown",Abnormal faeces or other GIT,Nonspecific,Nervous,Musculoskeletal &/or Lame,Recumbent,"Egg drop or
+Egg quality",Skin
+1,Marek’s Disease,all,all,all,20,48,16,20,17,13,40,30,9,2,2
+2,Marek’s Disease,adult,all,all,15,36,10,15,12,11,33,22,7,2,2
+3,Marek’s Disease,other,all,all,5,12,6,5,5,2,7,8,2,0,0
+4,Marek’s Disease,all,2020,all,1,1,1,2,2,2,3,2,1,0,1
+5,Marek’s Disease,all,2021,all,3,5,1,2,2,1,8,2,1,0,0
+6,Marek’s Disease,all,2022,all,0,3,1,0,1,1,4,2,0,1,1
+7,Marek’s Disease,all,2023,all,0,1,0,2,0,0,2,2,0,0,0
+8,Marek’s Disease,all,2024,all,2,1,3,0,0,0,3,1,3,0,0
+9,Marek’s Disease,all,all,London,0,0,0,0,0,0,1,0,0,0,0
+10,Marek’s Disease,all,all,Scotland,2,2,0,3,1,0,2,1,0,0,0
+11,Marek’s Disease,all,all,Wales,2,7,3,1,0,4,4,2,2,0,0
+12,Egg peritonitis and salpingitis,all,all,all,41,33,19,23,20,14,4,1,12,1,0
+13,Egg peritonitis and salpingitis,adult,all,all,39,31,18,21,16,12,4,1,12,5,1
+14,Egg peritonitis and salpingitis,other,all,all,2,2,1,2,4,2,0,0,0,0,0
+15,Egg peritonitis and salpingitis,all,2020,all,2,0,0,0,3,1,1,0,0,0,0
+16,Egg peritonitis and salpingitis,all,2021,all,8,3,0,2,7,1,1,0,2,3,0
+17,Egg peritonitis and salpingitis,all,2022,all,4,4,1,3,2,4,0,0,1,1,0
+18,Egg peritonitis and salpingitis,all,2023,all,1,2,1,2,1,0,0,0,0,0,0
+19,Egg peritonitis and salpingitis,all,2024,all,4,2,2,0,0,0,1,0,2,0,0
+20,Egg peritonitis and salpingitis,all,all,London,1,0,0,0,0,0,0,0,0,0,0
+21,Egg peritonitis and salpingitis,all,all,Scotland,11,0,2,4,2,1,0,0,1,1,1
+22,Egg peritonitis and salpingitis,all,all,Wales,6,3,1,3,2,4,0,0,3,0,0
+23,Neoplasm,all,all,all,19,44,9,15,14,5,2,4,3,5,2
+24,Neoplasm,adult,all,all,18,39,9,14,12,5,2,4,3,5,2
+25,Neoplasm,other,all,all,1,5,0,1,2,0,0,0,0,0,0
+26,Neoplasm,all,2020,all,1,3,1,0,1,1,0,0,0,0,0
+27,Neoplasm,all,2021,all,2,7,2,1,1,0,0,0,1,2,0
+28,Neoplasm,all,2022,all,3,6,1,3,1,0,0,1,0,1,1
+29,Neoplasm,all,2023,all,3,4,0,1,4,2,0,0,0,1,0
+30,Neoplasm,all,2024,all,2,3,1,1,0,0,1,1,0,0,0
+31,Neoplasm,all,all,London,0,2,0,0,0,1,0,0,0,0,0
+32,Neoplasm,all,all,Scotland,4,7,1,3,0,0,0,0,0,0,0
+33,Neoplasm,all,all,Wales,3,2,2,2,1,0,0,0,0,0,0
+34,Colisepticcemia,all,all,all,36,9,7,26,1,3,1,4,2,2,0
+35,Colisepticcemia,adult,all,all,8,2,4,7,0,1,1,0,1,2,0
+36,Colisepticcemia,other,all,all,28,7,3,19,1,2,0,4,1,0,0
+37,Colisepticcemia,all,2020,all,1,1,0,0,0,1,1,0,0,0,0
+38,Colisepticcemia,all,2021,all,0,1,3,0,0,1,0,2,0,0,0
+39,Colisepticcemia,all,2022,all,1,0,1,1,0,0,0,0,0,1,0
+40,Colisepticcemia,all,2023,all,0,0,0,0,0,0,0,0,1,0,0
+41,Colisepticcemia,all,2024,all,1,0,0,2,0,0,0,0,0,0,0
+42,Colisepticcemia,all,all,Scotland,22,4,1,18,0,0,0,0,1,0,0
+43,Colisepticcemia,all,all,Wales,0,0,1,2,0,2,0,0,0,0,0
+44,Coccidiosis,all,all,all,13,27,10,8,12,9,2,3,5,0,0
+45,Coccidiosis,adult,all,all,,6,4,4,2,2,0,0,2,0,0
+46,Coccidiosis,other,all,all,12,21,6,4,10,7,2,3,3,0,0
+47,Coccidiosis,all,2020,all,0,0,1,0,1,2,0,0,0,0,0
+48,Coccidiosis,all,2021,all,2,2,2,0,3,1,0,1,1,0,0
+49,Coccidiosis,all,2022,all,0,1,1,0,0,0,0,0,0,0,0
+50,Coccidiosis,all,2023,all,0,0,1,0,0,0,0,0,0,0,0
+51,Coccidiosis,all,2024,all,0,1,1,0,0,0,0,0,0,0,0
+52,Coccidiosis,all,all,London,0,1,0,0,0,0,0,0,0,0,0
+53,Coccidiosis,all,all,Scotland,3,0,0,0,1,0,1,0,1,0,0
+54,Coccidiosis,all,all,Wales,3,10,1,1,4,4,0,0,2,0,0
