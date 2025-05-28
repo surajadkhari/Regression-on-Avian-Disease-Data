@@ -84,6 +84,7 @@ plt.savefig("high_risk_distribution.png")
 plt.show()
 plt.close()
 
+# CLuste analysis 
 # === Apply KM# Select features
 categorical = ['Region', 'Diagnosis']
 numerical = [
@@ -138,4 +139,75 @@ plt.legend(title="Cluster")
 plt.tight_layout()
 plt.show()
 
+# Naive Bayes Classifier Model
+df['High_Risk'] = (df['Total_Cases'] >= 10).astype(int)
 
+# === 1. Train-Test Split ===
+features = [
+    'Vaccine_Rate',
+    'Poultry_Population_000s',
+    'Biosecurity_Score',
+    'Month',
+    'Migration_Level'
+]
+X = df[features]
+y = df['High_Risk']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# === 2. Train Naive Bayes Model ===
+nb_model = GaussianNB()
+nb_model.fit(X_train, y_train)
+y_pred = nb_model.predict(X_test)
+
+# === 3. Evaluation Metrics ===
+print("Classification Report:\n")
+print(classification_report(y_test, y_pred, target_names=["Low Risk", "High Risk"]))
+print("Accuracy:", round(accuracy_score(y_test, y_pred), 2))
+
+# === 4. Confusion Matrix ===
+cm = confusion_matrix(y_test, y_pred)
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Low Risk", "High Risk"])
+plt.figure(figsize=(6, 5))
+disp.plot(cmap='Blues', values_format='d')
+plt.title("Confusion Matrix: Naive Bayes Classifier")
+plt.grid(False)
+plt.tight_layout()
+plt.show()
+
+# === 5. Feature Importance (using absolute log probability means) ===
+importances = np.abs(nb_model.theta_[1] - nb_model.theta_[0])  # Difference in means between classes
+feat_imp_df = pd.DataFrame({
+    'Feature': features,
+    'Importance (abs diff in mean)': importances
+}).sort_values(by='Importance (abs diff in mean)', ascending=False)
+
+# Plot Feature Importance
+plt.figure(figsize=(8, 5))
+sns.barplot(x='Importance (abs diff in mean)', y='Feature', data=feat_imp_df, hue='Feature', dodge=False, palette='coolwarm', legend=False)
+
+plt.title("Naive Bayes Feature Importance (Approximate)")
+plt.tight_layout()
+plt.show()
+
+# === 6. Decision Boundary (2D) ===
+X_vis = df[['Poultry_Population_000s', 'Vaccine_Rate']]
+y_vis = df['High_Risk']
+nb_vis = GaussianNB()
+nb_vis.fit(X_vis, y_vis)
+
+x_min, x_max = X_vis['Poultry_Population_000s'].min() - 50, X_vis['Poultry_Population_000s'].max() + 50
+y_min, y_max = X_vis['Vaccine_Rate'].min() - 5, X_vis['Vaccine_Rate'].max() + 5
+xx, yy = np.meshgrid(np.linspace(x_min, x_max, 300), np.linspace(y_min, y_max, 300))
+
+grid_df = pd.DataFrame(np.c_[xx.ravel(), yy.ravel()], columns=['Poultry_Population_000s', 'Vaccine_Rate'])
+Z = nb_vis.predict(grid_df).reshape(xx.shape)
+
+plt.figure(figsize=(10, 6))
+plt.contourf(xx, yy, Z, cmap='Pastel2', alpha=0.6)
+sns.scatterplot(x=X_vis['Poultry_Population_000s'], y=X_vis['Vaccine_Rate'], hue=y_vis, palette='Set1', edgecolor='k')
+plt.title("Naive Bayes Classifier Decision Boundary")
+plt.xlabel("Poultry Population (000s)")
+plt.ylabel("Vaccine Rate (%)")
+plt.legend(title="High Risk")
+plt.tight_layout()
+plt.show()
