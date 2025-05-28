@@ -83,3 +83,59 @@ plt.tight_layout()
 plt.savefig("high_risk_distribution.png")
 plt.show()
 plt.close()
+
+# === Apply KM# Select features
+categorical = ['Region', 'Diagnosis']
+numerical = [
+    'Total_Cases', 'Month', 'Avg_Temperature', 'Humidity',
+    'Migration_Level', 'Biosecurity_Score', 'Vaccine_Rate', 'Poultry_Population_000s'
+]
+
+df = df[categorical + numerical].dropna()
+
+# Pipeline for preprocessing + PCA
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('num', StandardScaler(), numerical),
+        ('cat', OneHotEncoder(drop='first'), categorical)
+    ]
+)
+
+pipeline = Pipeline(steps=[
+    ('preprocessor', preprocessor),
+    ('pca', PCA(n_components=2))
+])
+
+X_pca = pipeline.fit_transform(df)
+
+# === Elbow Method ===
+inertias = []
+K_range = range(1, 11)
+for k in K_range:
+    kmeans = KMeans(n_clusters=k, random_state=42, n_init='auto')
+    kmeans.fit(X_pca)
+    inertias.append(kmeans.inertia_)
+
+plt.figure(figsize=(6, 4))
+plt.plot(K_range, inertias, marker='o')
+plt.axvline(x=4, linestyle='--', color='red', label='Suggested K = 4')
+plt.title('Elbow Method for Optimal K')
+plt.xlabel('Number of Clusters (K)')
+plt.ylabel('WCSS (Inertia)')
+plt.legend()
+plt.tight_layout()
+plt.show()eans with optimal K ===
+kmeans_final = KMeans(n_clusters=4, random_state=42, n_init='auto')
+clusters = kmeans_final.fit_predict(X_pca)
+
+# Plot Clusters
+plt.figure(figsize=(8, 6))
+sns.scatterplot(x=X_pca[:, 0], y=X_pca[:, 1], hue=clusters, palette='viridis', s=60)
+plt.title("Clusters of Avian Disease Profiles (PCA Reduced)")
+plt.xlabel("PCA Component 1")
+plt.ylabel("PCA Component 2")
+plt.legend(title="Cluster")
+plt.tight_layout()
+plt.show()
+
+
