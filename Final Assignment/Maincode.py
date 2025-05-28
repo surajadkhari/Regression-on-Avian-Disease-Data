@@ -211,3 +211,68 @@ plt.legend(title="High Risk")
 plt.tight_layout()
 plt.show()
 
+df['High_Risk'] = (df['Total_Cases'] >= 10).astype(int)
+
+# Full feature model
+features = ['Vaccine_Rate', 'Poultry_Population_000s', 'Biosecurity_Score', 'Avg_Temperature', 'Humidity']
+X = df[features]
+y = df['High_Risk']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train model
+rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
+rf_model.fit(X_train, y_train)
+y_pred = rf_model.predict(X_test)
+
+# === 1. Evaluation ===
+print("\nClassification Report:\n")
+print(classification_report(y_test, y_pred, target_names=["Low Risk", "High Risk"]))
+print("Accuracy:", round(accuracy_score(y_test, y_pred), 2))
+
+# === 2. Confusion Matrix ===
+cm = confusion_matrix(y_test, y_pred)
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Low Risk", "High Risk"])
+plt.figure(figsize=(6, 5))
+disp.plot(cmap='Blues', values_format='d')
+plt.title("Confusion Matrix: Random Forest Classifier")
+plt.grid(False)
+plt.tight_layout()
+plt.show()
+
+# === 3. Feature Importance ===
+feat_imp = rf_model.feature_importances_
+feat_df = pd.DataFrame({'Feature': X.columns, 'Importance': feat_imp}).sort_values(by='Importance', ascending=False)
+
+plt.figure(figsize=(8, 5))
+sns.barplot(data=feat_df, x='Importance', y='Feature', color='forestgreen')
+plt.title('Random Forest Feature Importance')
+plt.tight_layout()
+plt.show()
+
+# === 4. Decision Boundary (2D visualization using top 2 features) ===
+X_2d = df[['Poultry_Population_000s', 'Vaccine_Rate']]
+y_2d = df['High_Risk']
+model_2d = RandomForestClassifier(n_estimators=100, random_state=42)
+model_2d.fit(X_2d, y_2d)
+
+# Create grid for decision surface
+x_min, x_max = X_2d.iloc[:, 0].min() - 50, X_2d.iloc[:, 0].max() + 50
+y_min, y_max = X_2d.iloc[:, 1].min() - 5, X_2d.iloc[:, 1].max() + 5
+xx, yy = np.meshgrid(np.linspace(x_min, x_max, 300),
+                     np.linspace(y_min, y_max, 300))
+
+grid_rf = pd.DataFrame(np.c_[xx.ravel(), yy.ravel()], columns=['Poultry_Population_000s', 'Vaccine_Rate'])
+Z = model_2d.predict(grid_rf).reshape(xx.shape)
+
+# Plot decision boundary
+plt.figure(figsize=(10, 6))
+plt.contourf(xx, yy, Z, cmap='Pastel2', alpha=0.6)
+sns.scatterplot(x=X_2d.iloc[:, 0], y=X_2d.iloc[:, 1], hue=y_2d, palette='Set1', edgecolor='k')
+plt.title("Random Forest Classifier Decision Boundary")
+plt.xlabel("Poultry Population (000s)")
+plt.ylabel("Vaccine Rate (%)")
+plt.legend(title='High Risk')
+plt.tight_layout()
+plt.show()
+
+
