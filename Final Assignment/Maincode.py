@@ -62,3 +62,24 @@ plt.tight_layout()
 plt.savefig("monthly_trend_outbreaks.png")
 plt.show()
 plt.close()
+
+# 4. Correlation Heatmap of All Numeric Features
+numeric_columns = df.select_dtypes(include=['int64', 'float64']).columns
+corr_matrix = df[numeric_columns].corr()
+plt.figure(figsize=(12, 8))
+sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f")
+plt.title('Correlation Heatmap of All Numeric Features')
+plt.tight_layout()
+plt.savefig("correlation_heatmap_all_features.png")
+plt.show()
+plt.close()
+
+# 5. High-Risk vs Low-Risk Distribution
+plt.figure(figsize=(6, 4))
+sns.countplot(data=df, x='High_Risk')
+plt.title('Distribution of High-Risk vs Low-Risk Outbreaks')
+plt.xticks([0, 1], ['Low Risk', 'High Risk'])
+plt.tight_layout()
+plt.savefig("high_risk_distribution.png")
+plt.show()
+plt.close()
